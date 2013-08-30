@@ -18,55 +18,56 @@ model class might look like::
 
 	class Blog_model extends CI_Model {
 
-	    public $title   = '';
-	    public $content = '';
-	    public $date    = '';
+		public $title;
+		public $content;
+		public $date;
 
-	    function __construct()
-	    {
-	        // Call the Model constructor
-	        parent::__construct();
-	    }
+		public function __construct()
+		{
+			// Call the CI_Model constructor
+			parent::__construct();
+		}
 
-	    function get_last_ten_entries()
-	    {
-	        $query = $this->db->get('entries', 10);
-	        return $query->result();
-	    }
+		public function get_last_ten_entries()
+		{
+			$query = $this->db->get('entries', 10);
+			return $query->result();
+		}
 
-	    function insert_entry()
-	    {
-	        $this->title   = $_POST['title']; // please read the below note
-	        $this->content = $_POST['content'];
-	        $this->date    = time();
+		public function insert_entry()
+		{
+			$this->title	= $_POST['title']; // please read the below note
+			$this->content	= $_POST['content'];
+			$this->date	= time();
 
-	        $this->db->insert('entries', $this);
-	    }
+			$this->db->insert('entries', $this);
+		}
 
-	    function update_entry()
-	    {
-	        $this->title   = $_POST['title'];
-	        $this->content = $_POST['content'];
-	        $this->date    = time();
+		public function update_entry()
+		{
+			$this->title	= $_POST['title'];
+			$this->content	= $_POST['content'];
+			$this->date	= time();
 
-	        $this->db->update('entries', $this, array('id' => $_POST['id']));
-	    }
+			$this->db->update('entries', $this, array('id' => $_POST['id']));
+		}
 
 	}
 
-.. note:: The functions in the above example use the :doc:`Active
-	Record <../database/query_builder>` database functions.
+.. note:: The methods in the above example use the :doc:`Query Builder
+	<../database/query_builder>` database methods.
 
-.. note:: For the sake of simplicity in this example we're using $_POST
+.. note:: For the sake of simplicity in this example we're using ``$_POST``
 	directly. This is generally bad practice, and a more common approach
-	would be to use the :doc:`Input Class <../libraries/input>`
-	$this->input->post('title')
+	would be to use the :doc:`Input Library <../libraries/input>`
+	``$this->input->post('title')``.
 
 Anatomy of a Model
 ==================
 
-Model classes are stored in your **application/models/ folder**. They can be
-nested within sub-folders if you want this type of organization.
+Model classes are stored in your **application/models/** directory.
+They can be nested within sub-directories if you want this type of
+organization.
 
 The basic prototype for a model class is this::
 
@@ -83,8 +84,7 @@ Where **Model_name** is the name of your class. Class names **must** have
 the first letter capitalized with the rest of the name lowercase. Make
 sure your class extends the base Model class.
 
-The file name will be a lower case version of your class name. For
-example, if your class is this::
+The file name must match the class name. For example, if this is your class::
 
 	class User_model extends CI_Model {
 
@@ -97,20 +97,20 @@ example, if your class is this::
 
 Your file will be this::
 
-	application/models/user_model.php
+	application/models/User_model.php
 
 Loading a Model
 ===============
 
 Your models will typically be loaded and called from within your
-:doc:`controller <controllers>` functions. To load a model you will use
+:doc:`controller <controllers>` methods. To load a model you will use
 the following method::
 
 	$this->load->model('model_name');
 
-If your model is located in a sub-folder, include the relative path from
-your models folder. For example, if you have a model located at
-application/models/blog/queries.php you'll load it using::
+If your model is located in a sub-directory, include the relative path
+from your models directory. For example, if you have a model located at
+*application/models/blog/Queries.php* you'll load it using::
 
 	$this->load->model('blog/queries');
 
@@ -141,7 +141,6 @@ view::
 
 			$this->load->view('blog', $data);
 		}
-
 	}
 	
 
@@ -163,10 +162,9 @@ database. The following options for connecting are available to you:
 -  You can connect using the standard database methods :doc:`described
    here <../database/connecting>`, either from within your
    Controller class or your Model class.
--  You can tell the model loading function to auto-connect by passing
-   TRUE (boolean) via the third parameter, and connectivity settings, as
-   defined in your database config file will be used:
-   ::
+-  You can tell the model loading method to auto-connect by passing
+   TRUE (boolean) via the third parameter, and connectivity settings,
+   as defined in your database config file will be used::
 
 	$this->load->model('model_name', '', TRUE);
 
@@ -182,4 +180,4 @@ database. The following options for connecting are available to you:
 	$config['pconnect'] = FALSE;
 	$config['db_debug'] = TRUE;
 
-	$this->load->model('Model_name', '', $config);
+	$this->load->model('model_name', '', $config);

@@ -296,8 +296,8 @@ Client to send a request to the Server and receive a response.
 The Client
 ----------
 
-Using a text editor, create a controller called xmlrpc_client.php. In
-it, place this code and save it to your applications/controllers/
+Using a text editor, create a controller called Xmlrpc_client.php. In
+it, place this code and save it to your application/controllers/
 folder::
 
 	<?php
@@ -337,8 +337,8 @@ folder::
 The Server
 ----------
 
-Using a text editor, create a controller called xmlrpc_server.php. In
-it, place this code and save it to your applications/controllers/
+Using a text editor, create a controller called Xmlrpc_server.php. In
+it, place this code and save it to your application/controllers/
 folder::
 
 	<?php
@@ -423,7 +423,7 @@ the Server.
 	$parameters = $request->output_parameters();
 	$name = $parameters[0]['name'];
 	$size = $parameters[1]['size'];
-	$size = $parameters[1]['shape'];
+	$shape = $parameters[1]['shape'];
 
 **************************
 XML-RPC Function Reference
